@@ -5,8 +5,6 @@
 def sum_of_digits(n):
     n = abs(int(n))
     sum = 0
-    # if isinstance(n, int) is False:
-    # return "input is not int"
     for digit in list(str(n)):
         sum += int(digit)
     return sum
@@ -14,18 +12,12 @@ def sum_of_digits(n):
 
 def to_digits(n):
     n = abs(int(n))
-    # if isinstance(n, int) is False:
-    # return "input is not int"
     return list(str(n))
 
 
 def to_number(digits):
-    string = ''
-    # if isinstance(digits, list) is False:
-    # return "input is not list"
-    for char in digits:
-        string += str(char)
-    return string
+    str_digits = [str(ch) for ch in digits]
+    return ''.join(str_digits)
 
 
 def fact_digits(n):
@@ -37,4 +29,12 @@ def fact_digits(n):
 
 
 def count_words(arr):
+    word_count = {}
+    unique_words = set(arr)
+    for word in unique_words:
+        word_count[word] = arr.count(word)
+    return word_count
+
+
+def iterations_of_nan_expand(expanded):
 
