@@ -37,4 +37,12 @@ def count_words(arr):
 
 
 def iterations_of_nan_expand(expanded):
+    isNaN_list = expanded.split(' a ')
+    if isNaN_list.pop() != 'NaN':
+        return False
+    elif (set(isNaN_list) | set(["Not"])) != set(["Not"]):
+        return False
+    else:
+        return len(isNaN_list)
+
 
