@@ -49,19 +49,15 @@ def group(items):
 
     result = []
     result.append([items[0]])
-    last_items_index = len(items) - 1
+    last_items_index = len(items)
     last_result_index = len(result) - 1
-    subsequence = 1
 
-    for i in range(0, last_items_index):
-        current_element = items[i]
-        if items[i+1] == current_element:
-            subsequence += 1
+    for i in range(1, last_items_index):
+        if items[i] == result[last_result_index][0]:
+            result[last_result_index].append(items[i])
         else:
-            result[last_result_index].extend([current_element for j in range(1, subsequence)])
-            result.append([items[i+1]])
+            result.append([items[i]])
             last_result_index = len(result) - 1
-            subsequence = 1
 
     return result
 
@@ -69,6 +65,7 @@ def group(items):
 def max_consecutive(items):
     group_list = group(items)
     group_list.sort(key=len, reverse=True)
+    print(group_list)
     return len(group_list[0])
 
 
