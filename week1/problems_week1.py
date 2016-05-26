@@ -99,6 +99,14 @@ def num_to_alpha(keypad, num):
     return keypad_dict[str(keypad)][num-1]
 
 
+def alpha_to_num(alpha):
+    reverse_dict = {'abc': 2, 'def': 3, 'ghi': 4, 'jkl': 5, 'mno': 6,
+                    'pqrs': 7, 'tuv': 8, 'wxyz': 9}
+    for keypad in reverse_dict:
+        if alpha in keypad:
+            return reverse_dict[keypad], keypad.find(alpha) + 1
+
+
 def numbers_to_message(pressed_sequence):
     grouped_list = group(pressed_sequence)
     result_str = ''
@@ -117,3 +125,25 @@ def numbers_to_message(pressed_sequence):
             result_str += num_to_alpha(grouped_list[i][0], len(grouped_list[i]))
 
     return result_str
+
+
+def message_to_numbers(message):
+    result_list = []
+    previous_key = ''
+
+    for letter in message:
+        if letter == ' ':
+            result_list.append(0)
+            continue
+        elif letter.isupper():
+            result_list.append(1)
+        elif [previous_key] == result_list[-1:]:
+            result_list.append(-1)
+
+        if result_list != []:
+            previous_key = result_list[-1]
+
+        keypad, presses = alpha_to_num(letter.lower())
+        result_list.extend([keypad for j in range(0, presses)])
+
+    return result_list
