@@ -129,7 +129,6 @@ def numbers_to_message(pressed_sequence):
 
 def message_to_numbers(message):
     result_list = []
-    previous_key = ''
 
     for letter in message:
         if letter == ' ':
@@ -137,13 +136,10 @@ def message_to_numbers(message):
             continue
         elif letter.isupper():
             result_list.append(1)
-        elif [previous_key] == result_list[-1:]:
-            result_list.append(-1)
-
-        if result_list != []:
-            previous_key = result_list[-1]
 
         keypad, presses = alpha_to_num(letter.lower())
+        if [keypad] == result_list[-1:]:
+            result_list.append(-1)
         result_list.extend([keypad for j in range(0, presses)])
 
     return result_list
