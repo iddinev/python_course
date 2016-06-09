@@ -65,12 +65,19 @@ class _BaseUnit:
 
     def learn(self, spell):
         self._spell = spell
+        self._cancast = True
 
     def equip(self, weapon):
         self._weapon = weapon
 
-    def attack(self, opponent=None, by=None):
-
+    # def attack(self, opponent=None, by=None):
+    def attack(self, by=None):
+        if hasattr(self, '_weapon') and by == 'weapon':
+            return self._weapon.get_damage()
+        elif hasattr(self, '_spell') and by == 'magic':
+            return self._spell.get_damage()
+        else:
+            return 0
 
 
 class _BaseWeapon:
@@ -109,6 +116,12 @@ class Enemy(_BaseUnit):
     def __init__(self, health, mana, damage):
         super().__init__(health, mana)
         self._base_attack = Weapon('Base Attack', damage)
+
+    def attack(self, by=None):
+        if by is None:
+            return self._base_attack.get_damage()
+        else:
+            return super().attack(by)
 
 
 class Weapon(_BaseWeapon):
