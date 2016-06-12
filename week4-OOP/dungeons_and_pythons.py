@@ -5,6 +5,17 @@ class GameExceptions(Exception):
     pass
 
 
+class Dungeon:
+
+    def __init__(self, load_or_random):
+        with open(load_or_random, 'r') as fd:
+            self._dungeon_rows = fd.readlines()
+
+    def print_map(self):
+        for i in range(0, len(self._dungeon_rows)):
+            print(self._dungeon_rows[i].replace('\n', ''))
+
+
 class _BaseUnit:
 
     def __init__(self, health=0, mana=0, weapon=None, cancast=False):
@@ -70,11 +81,10 @@ class _BaseUnit:
     def equip(self, weapon):
         self._weapon = weapon
 
-    # def attack(self, opponent=None, by=None):
-    def attack(self, by=None):
-        if hasattr(self, '_weapon') and by == 'weapon':
+    def attack(self, using=None):
+        if hasattr(self, '_weapon') and using == 'weapon':
             return self._weapon.get_damage()
-        elif hasattr(self, '_spell') and by == 'magic':
+        elif hasattr(self, '_spell') and using == 'magic':
             return self._spell.get_damage()
         else:
             return 0
@@ -117,11 +127,11 @@ class Enemy(_BaseUnit):
         super().__init__(health, mana)
         self._base_attack = Weapon('Base Attack', damage)
 
-    def attack(self, by=None):
-        if by is None:
+    def attack(self, using=None):
+        if using is None:
             return self._base_attack.get_damage()
         else:
-            return super().attack(by)
+            return super().attack(using)
 
 
 class Weapon(_BaseWeapon):

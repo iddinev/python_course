@@ -19,4 +19,6 @@ class TestHero(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    map = Dungeon('level.txt')
+    map.print_map()
     unittest.main()
