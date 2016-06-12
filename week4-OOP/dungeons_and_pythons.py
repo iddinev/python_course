@@ -10,10 +10,23 @@ class Dungeon:
     def __init__(self, load_or_random):
         with open(load_or_random, 'r') as fd:
             self._dungeon_rows = fd.readlines()
+        for i in range(0, len(self._dungeon_rows)):
+            self._dungeon_rows[i] = self._dungeon_rows[i].replace('\n', '')
+        if self._dungeon_rows[-1][-1] != 'G':
+            pass  # Raise exception.
+        else:
+            self._start_points = []
+            for i in range(0, len(self._dungeon_rows)):
+                for j in range(0, len(self._dungeon_rows[0])):
+                    if self._dungeon_rows[i][j] == 'S':
+                        self._start_points.append((i, j))
 
     def print_map(self):
         for i in range(0, len(self._dungeon_rows)):
-            print(self._dungeon_rows[i].replace('\n', ''))
+            print(self._dungeon_rows[i])
+
+    def get_starting_points(self):
+        return self._start_points
 
 
 class _BaseUnit:
