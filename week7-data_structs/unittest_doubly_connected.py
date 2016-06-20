@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+from doubly_connected_list import DoublyLinkedList
+
+
+test_list = DoublyLinkedList()
+
+#  print(test_list.get_head())
+test_list.add_first(5)
+print('get head')
+print(test_list.get_head())
+#  print('get value of first')
+#  print(test_list.get_first())
+#  print('get value of last')
+#  print(test_list.get_last())
+#  print(test_list.get_tail())
+#  print(test_list._current_len)
+test_list.add_first('a')
+print('get head')
+print(test_list.get_head())
+#  print('get value of first')
+#  print(test_list.get_first())
+test_list.add_first('b')
+print('get head')
+print(test_list.get_head())
+#  print('get value of first')
+#  print(test_list.get_first())
+#  print(test_list._current_len)
+#  print(test_list.get_head())
+print('get tail')
+print(test_list.get_tail())
+print('remove/print last')
+print(test_list.remove_last())
+print('remove/print last')
+print(test_list.remove_last())
+#  print(test_list.remove_last())
