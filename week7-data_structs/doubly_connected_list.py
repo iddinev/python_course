@@ -58,37 +58,48 @@ class DoublyLinkedList:
     def add_first(self, x):
         new_head = Node(x, next=self._head)
         self._head = new_head
-        #  if self._current_len == 0 or 1:
-            #  self._tail = self._head
-        #  elif self._current_len == 2:
-            #  self._tail = self._head.next.next
-        #  self._current_len += 1
+        self._current_len += 1
+        if self._current_len == 1:
+            self._tail = self._head
+        elif self._current_len == 2:
+            self._tail = Node(self._tail.value, prev=self._head)
 
     """ O(1) """
     def add_last(self, x):
         new_tail = Node(x, prev=self._tail)
         self._tail = new_tail
-        #  if self._current_len == 0 or 1:
-            #  self._head = self._tail
-        #  elif self._current_len == 2:
-            #  self._head = self._tail.prev.prev
-        #  self._current_len += 1
+        self._current_len += 1
+        if self._current_len == 1:
+            self._head = self._tail
+        elif self._current_len == 2:
+            self._head = Node(self._head.value, next=self._tail)
 
     """ O(1) """
     def remove_first(self):
         removed_head = self._head
-        old_head = self._head.next if isinstance(self._head, Node) else None
-        #  old_head = self._head.next
+        if self._current_len == 2:
+            old_head = Node(self._tail.value)
+            self._tail = old_head
+        elif self._current_len == 1:
+            old_head = None
+            self._tail = None
+        else:
+            old_head = self._head.next
         self._head = old_head
         self._current_len -= 1
-        #  return old_head.value if hasattr(old_head, 'value') else None
         return removed_head.value if hasattr(removed_head, 'value') else None
 
     """ O(1) """
     def remove_last(self):
         removed_tail = self._tail
-        old_tail = self._tail.prev if isinstance(self._tail, Node) else None
-        #  old_tail = self._tail.prev
+        if self._current_len == 2:
+            old_tail = Node(self._head.value)
+            self._head = old_tail
+        elif self._current_len == 1:
+            old_tail = None
+            self._head = None
+        else:
+            old_tail = self._tail.prev
         self._tail = old_tail
         self._current_len -= 1
         return removed_tail.value if hasattr(removed_tail, 'value') else None
