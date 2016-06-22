@@ -38,12 +38,11 @@ class DoublyLinkedList:
 
     """ O(1) - Returns a Node object that represents the head """
     def get_head(self):
-        #  print(self._head.__str__())
-        return self._head.__str__()
+        return self._head
 
     """ O(1) - Returns a Node object that represents the tail """
     def get_tail(self):
-        return self._tail.__str__()
+        return self._tail
 
     """ O(1) - Returns the value of the first element """
     def get_first(self):
@@ -105,7 +104,14 @@ class DoublyLinkedList:
         return removed_tail.value if hasattr(removed_tail, 'value') else None
 
     """ O(1) """
-    def __len__(self): pass
+    def __len__(self):
+        return self._current_len
 
     """ O(n) - Called when we do list(items) """
-    def __iter__(self): pass
+    def __iter__(self):
+        dlist = []
+        tmp_node = self.get_head()
+        while tmp_node is not None:
+            dlist.append(tmp_node.value)
+            tmp_node = tmp_node.next
+        return iter(dlist)

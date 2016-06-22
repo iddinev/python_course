@@ -17,15 +17,22 @@ class Node:
     def isleaf(self):
         return self._isleaf
 
+    def __str__(self):
+        return self.value
+
 
 class Tree:
+
     def __init__(self, *, root):
         """
             When we are creating a new tree, we must always have a root element.
             For example:
             tree = Tree(root=5)
         """
+        #  super().__init__(root)
+        #  self._isroot = True
         self._root = Node(root)
+        self._bfs_list = []
 
     def add(self, *, value, parent):
         """
@@ -44,12 +51,21 @@ class Tree:
             2
         """
 
+
     def find(self, x):
         """
             Returns True or False if Node with value x is present in the tree
         """
+        hasnode = False
+
+
 
     def give_node(self, x):
+        pass
+
+    @staticmethod
+    def stack(root, stack_list)
+        stack_list = [root]
 
 
     def bfs_from_root(self):
@@ -67,3 +83,5 @@ class Tree:
 
              We count our levels from 1.
         """
+
+
