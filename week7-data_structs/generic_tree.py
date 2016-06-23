@@ -5,20 +5,28 @@ class Node:
     def __init__(self, value):
         self.value = value
         self.children = []
-        self._isleaf = True
 
     def add_child(self, node):
         if not isinstance(node, Node):
             raise ValueError('node should be Node')
 
         self.children.append(node)
-        self._isleaf = False
 
     def isleaf(self):
-        return self._isleaf
+        if len(self.children) == 0:
+            return True
+        else:
+            return False
 
     def __str__(self):
         return self.value
+
+    def __repr__(self):
+        #  return "{}->|{}|".format(self.value, self.children)
+        return self.__str__()
+
+    def node_repr(self):
+        return "{}->|{}|".format(self.value, self.children)
 
 
 class Tree:
@@ -29,10 +37,7 @@ class Tree:
             For example:
             tree = Tree(root=5)
         """
-        #  super().__init__(root)
-        #  self._isroot = True
         self._root = Node(root)
-        self._bfs_list = []
 
     def add(self, *, value, parent):
         """
@@ -50,23 +55,19 @@ class Tree:
              /
             2
         """
-
+        nodes = stack(self._root)
+        print(nodes)
+        #  if parent in [node.value for node in nodes]:
+            #  parent_node =
 
     def find(self, x):
         """
             Returns True or False if Node with value x is present in the tree
         """
-        hasnode = False
-
-
+        pass
 
     def give_node(self, x):
         pass
-
-    @staticmethod
-    def stack(root, stack_list)
-        stack_list = [root]
-
 
     def bfs_from_root(self):
         """
@@ -83,5 +84,18 @@ class Tree:
 
              We count our levels from 1.
         """
+        pass
 
+    def tree_repr(self):
+        print(self._root.node_repr())
 
+def stack(root):
+
+    if root.isleaf():
+        return [root]
+    else:
+        return [root] + [stack(child)[0] for child in root.children]
+        #  print(statement)
+        #  return statement
+        #  return [root].extend([stack(child) for child in root.children])
+        #  return stack_list.extend([stack(child) for child in root.children])
