@@ -13,20 +13,20 @@ class Node:
         self.children.append(node)
 
     def isleaf(self):
-        if len(self.children) == 0:
+        if len(self.children) == []:
             return True
         else:
             return False
 
     def __str__(self):
-        return self.value
+        return str(self.value)
 
     def __repr__(self):
         #  return "{}->|{}|".format(self.value, self.children)
-        return self.__str__()
+        return str(self.value)
 
     def node_repr(self):
-        return "{}->|{}|".format(self.value, self.children)
+        print("{}->{}".format(self.value, self.children))
 
 
 class Tree:
@@ -55,10 +55,11 @@ class Tree:
              /
             2
         """
-        nodes = stack(self._root)
-        print(nodes)
-        #  if parent in [node.value for node in nodes]:
-            #  parent_node =
+        nodes = Tree.stack(self._root)
+        for node in nodes:
+            if parent == node.value:
+                parent_node = node
+                parent_node.add_child(Node(value))
 
     def find(self, x):
         """
@@ -66,8 +67,47 @@ class Tree:
         """
         pass
 
-    def give_node(self, x):
-        pass
+    def get_queue(self):
+        nodes = Tree.queue(self._root)
+        #  nodes = Tree.lsreduce(nodes)
+        return nodes
+
+    def get_stack(self):
+        nodes = Tree.stack(self._root)
+        return nodes
+
+    @staticmethod
+    def queue(root):
+        """
+            Depth-first algo.
+        """
+        if root.isleaf():
+            return [root]
+        else:
+            return [root] + [Tree.queue(child) for child in root.children]
+
+    @staticmethod
+    def stack(root):
+        """
+            Breadth-first algo.
+        """
+        stack_list = []
+        tmp_stack = [root]
+
+        while tmp_stack != []:
+            node = tmp_stack.pop(0)
+            stack_list += [node]
+            tmp_stack += [child for child in node.children]
+
+        return stack_list
+
+    @staticmethod
+    def lsreduce(lst):
+        if lst == []:
+            return lst
+        if isinstance(lst[0], list):
+            return Tree.lsreduce(lst[0]) + Tree.lsreduce(lst[1:])
+        return lst[:1] + Tree.lsreduce(lst[1:])
 
     def bfs_from_root(self):
         """
@@ -84,18 +124,45 @@ class Tree:
 
              We count our levels from 1.
         """
-        pass
+        bfs_list = []
+        bfs_list.append((1, tuple(self._root.value)))
 
-    def tree_repr(self):
-        print(self._root.node_repr())
+        stack_list = []
+        tmp_stack = [self._root] + [None]
+        level = 2
+        node_list = []
 
-def stack(root):
+        while tmp_stack != [None]:
+            marker = []
+            node = tmp_stack.pop(0)
+            if node is None:
+                node = tmp_stack.pop(0)
+                marker = [None]
+                bfs_list.append((level, tuple(node_list)))
+                node_list = []
+                level += 1
+            stack_list += [node]
+            node_list += [child for child in node.children]
+            tmp_stack += node_list + marker
 
+        return bfs_list
+
+def queue(root):
+    """
+        Depth-first algo.
+    """
     if root.isleaf():
         return [root]
     else:
-        return [root] + [stack(child)[0] for child in root.children]
-        #  print(statement)
-        #  return statement
-        #  return [root].extend([stack(child) for child in root.children])
-        #  return stack_list.extend([stack(child) for child in root.children])
+        return [root] + [queue(child) for child in root.children]
+
+def stack(root):
+    stack_list = []
+    tmp_stack = [root]
+
+    while tmp_stack != []:
+        node = tmp_stack.pop(0)
+        stack_list += [node]
+        tmp_stack += [child for child in node.children]
+
+    return stack_list
