@@ -26,6 +26,7 @@ bfs = tree.bfs_from_root()
 print("")
 for i in range(len(bfs)):
     print(bfs[i])
+#  print(tree.find(1))
 #  root = Node('/')
 #  new_node = Node('a')
 #  new_new_node = Node('!')

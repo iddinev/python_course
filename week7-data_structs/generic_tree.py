@@ -65,7 +65,8 @@ class Tree:
         """
             Returns True or False if Node with value x is present in the tree
         """
-        pass
+        nodes = Tree.stack(self._root)
+        return x in [node.value for node in nodes]
 
     def get_queue(self):
         nodes = Tree.queue(self._root)
@@ -147,6 +148,7 @@ class Tree:
 
         return bfs_list
 
+
 def queue(root):
     """
         Depth-first algo.
@@ -155,6 +157,7 @@ def queue(root):
         return [root]
     else:
         return [root] + [queue(child) for child in root.children]
+
 
 def stack(root):
     stack_list = []
