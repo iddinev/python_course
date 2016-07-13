@@ -1,31 +1,6 @@
 #!/usr/bin/env python3
 
 
-#  def decorator_var(var):
-    #  def decorator_func(func):
-        #  def decorated(a, b):
-            #  print('a, b ++{}'.format(var))
-            #  a += var
-            #  b += var
-            #  return func(a, b)
-        #  return decorated
-    #  return decorator_func
-
-
-#  def bare_func(a, b):
-    #  print('a+b = {}'.format(a+b))
-
-
-#  @decorator_var(2)
-#  def test_func(a, b):
-    #  #  print('a+b = {}'.format(a+b))
-    #  return bare_func(a, b)
-
-
-def base_accepts(*args):
-    print('args are: ', args)
-
-
 def accepts(*args):
     def take_func(func):
         def decorator(*in_args):
@@ -40,7 +15,23 @@ def accepts(*args):
         return decorator
     return take_func
 
+def base_accepts(*args):
+    return ', '.join([str(item) for item in args])
 
 @accepts(str, int)
 def test_accepts(*args):
     return base_accepts(*args)
+
+def encrypt(cypher_key):
+    # Do modular arithmetic on the key if key < 1 or > 26.
+    cypher_key = cypher_key % 26
+        def decorator():
+            clear_text = func()
+
+            return func(*in_args)
+    return decorator
+
+
+@encrypt(2)
+def test_encrypt():
+    return 'a b c d'
